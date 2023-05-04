@@ -24,8 +24,10 @@ const SurveyForm = () => {
       const response=await fetch("https://backendsurvey.onrender.com/users",{
         method:'POST',
         body:JSON.stringify(data),
+        credentials: 'include',
         headers:{
-          'Content-Type':'application/json'
+          'Content-Type':'application/json',
+          
         }
       })
 
