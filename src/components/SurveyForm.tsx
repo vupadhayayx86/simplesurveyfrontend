@@ -2,6 +2,7 @@ import React, { FormEvent } from 'react'
 import {useForm,SubmitHandler} from "react-hook-form"
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import axios from "axios"
 
 interface Props{
     username:String,
@@ -13,6 +14,13 @@ interface Props{
 const SurveyForm = () => {
     const {register,handleSubmit,formState:{errors},reset} =useForm<Props>()
   
+    const handleGet=(e:FormEvent)=>{
+      e.preventDefault()
+      axios.get("https://backendsurvey.onrender.com/users",{withCredentials:true})
+      .then(res=>console.log(res))
+      .catch(error=>console.log(error))
+    }
+    
 
     const onFormSubmit=async (data:Props)=>{
       console.log(data)
@@ -23,12 +31,11 @@ const SurveyForm = () => {
       
       const response=await fetch("https://backendsurvey.onrender.com/users",{
         method:'POST',
-        body:JSON.stringify(data),
-        credentials: 'include',
         headers:{
           'Content-Type':'application/json',
-          
-        }
+        },
+        credentials: 'include',
+        body:JSON.stringify(data)
       })
 
       const json=await response.json()
@@ -63,6 +70,7 @@ const SurveyForm = () => {
         <ToastContainer />
         <button className="btn btn-primary" type='submit'>Submit</button>
         <button className="btn btn-danger m-3" onClick={(e)=>resetForm(e)}>Clear</button>
+        <button className="btn btn-danger m-3" onClick={(e)=>handleGet(e)}>Clear</button>
     </form>
   )
 }
