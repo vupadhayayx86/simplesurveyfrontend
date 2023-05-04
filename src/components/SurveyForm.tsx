@@ -4,6 +4,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import axios from "axios"
 
+
 interface Props{
     username:String,
     email:String,
@@ -13,7 +14,8 @@ interface Props{
 
 const SurveyForm = () => {
     const {register,handleSubmit,formState:{errors},reset} =useForm<Props>()
-  
+    
+
     const handleGet=(e:FormEvent)=>{
       e.preventDefault()
       axios.get("https://backendsurvey.onrender.com/users",{withCredentials:true})
@@ -70,7 +72,8 @@ const SurveyForm = () => {
         <ToastContainer />
         <button className="btn btn-primary" type='submit'>Submit</button>
         <button className="btn btn-danger m-3" onClick={(e)=>resetForm(e)}>Clear</button>
-        <button className="btn btn-danger m-3" onClick={(e)=>handleGet(e)}>Clear</button>
+        <button className="btn btn-danger m-3" onClick={(e)=>handleGet(e)}>Get Cookies</button>
+        
     </form>
   )
 }
